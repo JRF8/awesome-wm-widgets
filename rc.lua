@@ -242,7 +242,7 @@ awful.screen.connect_for_each_screen(function(s)
                 show_current_level = true,
 		arc_thickness = 2,
 		main_color = '#ffffff',
-		charging_color = '#000jff',
+		charging_color = '#00ff00',
 		medium_level_color = '#ffff00',
 		low_level_color = '#ff0000',
 	    },
