@@ -26,6 +26,8 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 -- Battery Arc Widget
 local batteryarc_widget = require('awesome-wm-widgets.batteryarc-widget.batteryarc')
+-- Brightness Widget
+local brightness_widget = require('awesome-wm-widgets.brightness-widget.brightness')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -236,14 +238,19 @@ awful.screen.connect_for_each_screen(function(s)
 	    volume_widget{
 		widget_type = 'arc'
 	    },
-	    batteryarc_widget({
+	    batteryarc_widget{
                 show_current_level = true,
 		arc_thickness = 2,
 		main_color = '#ffffff',
 		charging_color = '#000jff',
 		medium_level_color = '#ffff00',
 		low_level_color = '#ff0000',
-	    }),
+	    },
+	    brightness_widget{
+	        type = 'icon_and_text',
+		program = 'brightnessctl',
+		step = 2,
+	    },
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
@@ -409,7 +416,10 @@ clientkeys = gears.table.join(
     -- pactl widget
     awful.key({}, "XF86AudioRaiseVolume", function () volume_widget:inc(5) end),
     awful.key({}, "XF86AudioLowerVolume", function () volume_widget:dec(5) end),
-    awful.key({}, "XF86AudioMute", function () volume_widget:toggle() end)
+    awful.key({}, "XF86AudioMute", function () volume_widget:toggle() end),
+    -- brightness widget
+    awful.key({}, "XF86MonBrightnessUp", function () brightness_widget:inc() end, {description = "increase brightness", group = "custom"}),
+    awful.key({}, "XF86MonBrightnessDown", function () brightness_widget:dec() end, {description = "decrease brightness", group = "custom"})
 )
 
 -- Bind all key numbers to tags.
