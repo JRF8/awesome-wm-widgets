@@ -24,7 +24,8 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 -- Pactl Widget
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
-
+-- Battery Arc Widget
+local batteryarc_widget = require('awesome-wm-widgets.batteryarc-widget.batteryarc')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -235,6 +236,14 @@ awful.screen.connect_for_each_screen(function(s)
 	    volume_widget{
 		widget_type = 'arc'
 	    },
+	    batteryarc_widget({
+                show_current_level = true,
+		arc_thickness = 2,
+		main_color = '#ffffff',
+		charging_color = '#000jff',
+		medium_level_color = '#ffff00',
+		low_level_color = '#ff0000',
+	    }),
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
