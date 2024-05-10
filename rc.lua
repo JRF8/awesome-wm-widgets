@@ -22,6 +22,10 @@ require("awful.hotkeys_popup.keys")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
+-- Pactl Widget
+local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
+
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -228,6 +232,9 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+	    volume_widget{
+		widget_type = 'arc'
+	    },
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
@@ -388,7 +395,12 @@ clientkeys = gears.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()
         end ,
-        {description = "(un)maximize horizontally", group = "client"})
+        {description = "(un)maximize horizontally", group = "client"}),
+
+    -- pactl widget
+    awful.key({}, "XF86AudioRaiseVolume", function () volume_widget:inc(5) end),
+    awful.key({}, "XF86AudioLowerVolume", function () volume_widget:dec(5) end),
+    awful.key({}, "XF86AudioMute", function () volume_widget:toggle() end)
 )
 
 -- Bind all key numbers to tags.
