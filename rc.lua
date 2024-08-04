@@ -447,6 +447,9 @@ clientkeys = gears.table.join(
 	awful.key({}, "XF86MonBrightnessUp", function()
 		brightness_widget:inc()
 	end, { description = "increase brightness", group = "custom" }),
+	awful.key({ modkey }, "g", function()
+		awful.spawn.with_shell("flameshot gui")
+	end),
 	awful.key({}, "XF86MonBrightnessDown", function()
 		brightness_widget:dec()
 	end, { description = "decrease brightness", group = "custom" })
