@@ -436,20 +436,20 @@ clientkeys = gears.table.join(
 	-- pactl widget
 	awful.key({}, "XF86AudioRaiseVolume", function()
 		volume_widget:inc(5)
-	end),
+	end, { description = "increase volume", group = "custom" }),
 	awful.key({}, "XF86AudioLowerVolume", function()
 		volume_widget:dec(5)
-	end),
+	end, { description = "decrease volume", group = "custom" }),
 	awful.key({}, "XF86AudioMute", function()
 		volume_widget:toggle()
-	end),
+	end, { description = "mute volume", group = "custom" }),
 	-- brightness widget
 	awful.key({}, "XF86MonBrightnessUp", function()
 		brightness_widget:inc()
 	end, { description = "increase brightness", group = "custom" }),
 	awful.key({ modkey }, "g", function()
 		awful.spawn.with_shell("flameshot gui")
-	end),
+	end, { description = "screenshot with flameshot", group = "custom" }),
 	awful.key({}, "XF86MonBrightnessDown", function()
 		brightness_widget:dec()
 	end, { description = "decrease brightness", group = "custom" })
