@@ -25,6 +25,8 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 -- Brightness Widget
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+-- New Keyboard Backlight Widget
+local keybright_widget = require("awesome-wm-widgets.keybright-widget.keybright")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -123,7 +125,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+local mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -214,16 +216,21 @@ awful.screen.connect_for_each_screen(function(s)
 	-- Add widgets to the wibox
 	s.mywibox:setup({
 		layout = wibox.layout.align.horizontal,
+		expand = "none",
 		{ -- Left widgets
 			layout = wibox.layout.fixed.horizontal,
-			s.mytaglist,
-			s.mypromptbox,
+			mytextclock,
 		},
-		s.mytasklist, -- Middle widget
+		{
+			-- Center widgets
+			layout = wibox.layout.fixed.horizontal,
+			s.mytaglist,
+		},
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			volume_widget({
 				widget_type = "arc",
+				size = 28,
 			}),
 			batteryarc_widget({
 				show_current_level = true,
@@ -232,17 +239,22 @@ awful.screen.connect_for_each_screen(function(s)
 				charging_color = "#00ff00",
 				medium_level_color = "#ffff00",
 				low_level_color = "#ff0000",
-				size = 22,
-				font = 'Play 8'
+				size = 28,
+				font = "Play 12",
 			}),
 			brightness_widget({
-				type = "icon_and_text",
+				type = "arc",
+				size = 28,
 				program = "brightnessctl",
 				step = 2,
 			}),
+			keybright_widget({
+				type = "arc",
+				max_val = 255,
+				size = 28,
+			}),
 			-- mykeyboardlayout,
 			wibox.widget.systray(),
-			mytextclock,
 		},
 	})
 end)
@@ -351,7 +363,7 @@ globalkeys = gears.table.join(
 	end, { description = "lua execute prompt", group = "awesome" }),
 	-- Rofi
 	awful.key({ modkey }, "p", function()
-		awful.spawn.with_shell("rofi -show drun -show-icons")	
+		awful.spawn.with_shell("rofi -show drun -show-icons")
 	end, { description = "launch with Rofi", group = "launcher" })
 )
 
@@ -410,12 +422,19 @@ clientkeys = gears.table.join(
 	awful.key({}, "XF86MonBrightnessUp", function()
 		brightness_widget:inc()
 	end, { description = "increase brightness", group = "custom" }),
-	awful.key({ modkey }, "g", function()
-		awful.spawn.with_shell("flameshot gui")
-	end, { description = "screenshot with flameshot", group = "custom" }),
 	awful.key({}, "XF86MonBrightnessDown", function()
 		brightness_widget:dec()
-	end, { description = "decrease brightness", group = "custom" })
+	end, { description = "decrease brightness", group = "custom" }),
+	-- keyboard brightness widget
+	awful.key({}, "XF86KbdBrightnessUp", function()
+		keybright_widget:inc()
+	end, { description = "increase brightness", group = "custom" }),
+	awful.key({}, "XF86KbdBrightnessDown", function()
+		keybright_widget:dec()
+	end, { description = "decrease brightness", group = "custom" }),
+	awful.key({ modkey }, "g", function()
+		awful.spawn.with_shell("flameshot gui")
+	end, { description = "screenshot with flameshot", group = "custom" })
 )
 
 -- Bind all key numbers to tags.
@@ -539,8 +558,7 @@ awful.rules.rules = {
 	-- { rule = { class = "Firefox" },
 	--   properties = { screen = 1, tag = "2" } },
 	-- Rule to fix issue where Firefox does not tile
-	{ rule = { class = "firefox" },
-          properties = { opacity = 1, maximized = false, floating = false } },
+	{ rule = { class = "firefox" }, properties = { opacity = 1, maximized = false, floating = false } },
 }
 -- }}}
 
