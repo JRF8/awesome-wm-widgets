@@ -211,7 +211,7 @@ awful.screen.connect_for_each_screen(function(s)
 	})
 
 	-- Create the wibox
-	s.mywibox = awful.wibar({ position = "top", screen = s })
+	s.mywibox = awful.wibar({ position = "top", screen = s, opacity = 0.8 })
 
 	-- Add widgets to the wibox
 	s.mywibox:setup({
@@ -347,12 +347,6 @@ globalkeys = gears.table.join(
 			c:emit_signal("request::activate", "key.unminimize", { raise = true })
 		end
 	end, { description = "restore minimized", group = "client" }),
-
-	-- Prompt
-	awful.key({ modkey }, "r", function()
-		awful.screen.focused().mypromptbox:run()
-	end, { description = "run prompt", group = "launcher" }),
-
 	awful.key({ modkey }, "x", function()
 		awful.prompt.run({
 			prompt = "Run Lua code: ",
@@ -364,7 +358,11 @@ globalkeys = gears.table.join(
 	-- Rofi
 	awful.key({ modkey }, "p", function()
 		awful.spawn.with_shell("rofi -show drun -show-icons")
-	end, { description = "launch with Rofi", group = "launcher" })
+	end, { description = "launch with Rofi", group = "launcher" }),
+	-- Resolution Script
+	awful.key({ modkey }, "r", function()
+		awful.spawn.with_shell(".config/awesome/scripts/resolution.sh")
+	end, { description = "Set Screen Resolution", group = "launcher" })
 )
 
 clientkeys = gears.table.join(
