@@ -283,10 +283,6 @@ globalkeys = gears.table.join(
 	awful.key({ modkey }, "k", function()
 		awful.client.focus.byidx(-1)
 	end, { description = "focus previous by index", group = "client" }),
-	awful.key({ modkey }, "w", function()
-		mymainmenu:show()
-	end, { description = "show main menu", group = "awesome" }),
-
 	-- Layout manipulation
 	awful.key({ modkey, "Shift" }, "j", function()
 		awful.client.swap.byidx(1)
@@ -432,7 +428,10 @@ clientkeys = gears.table.join(
 	end, { description = "decrease brightness", group = "custom" }),
 	awful.key({ modkey }, "g", function()
 		awful.spawn.with_shell("flameshot gui")
-	end, { description = "screenshot with flameshot", group = "custom" })
+	end, { description = "screenshot with flameshot", group = "custom" }),
+	awful.key({ modkey }, "w", function()
+		awful.spawn.with_shell(".config/awesome/scripts/wallpaper.sh")
+	end, { description = "set wallpaper", group = "custom" })
 )
 
 -- Bind all key numbers to tags.
