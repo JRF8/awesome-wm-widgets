@@ -358,7 +358,37 @@ globalkeys = gears.table.join(
 	-- Resolution Script
 	awful.key({ modkey }, "r", function()
 		awful.spawn.with_shell(".config/awesome/scripts/resolution.sh")
-	end, { description = "Set Screen Resolution", group = "launcher" })
+	end, { description = "Set Screen Resolution", group = "launcher" }),
+	-- pactl widget
+	awful.key({}, "XF86AudioRaiseVolume", function()
+		volume_widget:inc(5)
+	end, { description = "increase volume", group = "custom" }),
+	awful.key({}, "XF86AudioLowerVolume", function()
+		volume_widget:dec(5)
+	end, { description = "decrease volume", group = "custom" }),
+	awful.key({}, "XF86AudioMute", function()
+		volume_widget:toggle()
+	end, { description = "mute volume", group = "custom" }),
+	-- brightness widget
+	awful.key({}, "XF86MonBrightnessUp", function()
+		brightness_widget:inc()
+	end, { description = "increase brightness", group = "custom" }),
+	awful.key({}, "XF86MonBrightnessDown", function()
+		brightness_widget:dec()
+	end, { description = "decrease brightness", group = "custom" }),
+	-- keyboard brightness widget
+	awful.key({}, "XF86KbdBrightnessUp", function()
+		keybright_widget:inc()
+	end, { description = "increase brightness", group = "custom" }),
+	awful.key({}, "XF86KbdBrightnessDown", function()
+		keybright_widget:dec()
+	end, { description = "decrease brightness", group = "custom" }),
+	awful.key({ modkey }, "g", function()
+		awful.spawn.with_shell("flameshot gui")
+	end, { description = "screenshot with flameshot", group = "custom" }),
+	awful.key({ modkey }, "w", function()
+		awful.spawn.with_shell(".config/awesome/scripts/wallpaper.sh")
+	end, { description = "set wallpaper", group = "custom" })
 )
 
 clientkeys = gears.table.join(
@@ -400,38 +430,7 @@ clientkeys = gears.table.join(
 	awful.key({ modkey, "Shift" }, "m", function(c)
 		c.maximized_horizontal = not c.maximized_horizontal
 		c:raise()
-	end, { description = "(un)maximize horizontally", group = "client" }),
-
-	-- pactl widget
-	awful.key({}, "XF86AudioRaiseVolume", function()
-		volume_widget:inc(5)
-	end, { description = "increase volume", group = "custom" }),
-	awful.key({}, "XF86AudioLowerVolume", function()
-		volume_widget:dec(5)
-	end, { description = "decrease volume", group = "custom" }),
-	awful.key({}, "XF86AudioMute", function()
-		volume_widget:toggle()
-	end, { description = "mute volume", group = "custom" }),
-	-- brightness widget
-	awful.key({}, "XF86MonBrightnessUp", function()
-		brightness_widget:inc()
-	end, { description = "increase brightness", group = "custom" }),
-	awful.key({}, "XF86MonBrightnessDown", function()
-		brightness_widget:dec()
-	end, { description = "decrease brightness", group = "custom" }),
-	-- keyboard brightness widget
-	awful.key({}, "XF86KbdBrightnessUp", function()
-		keybright_widget:inc()
-	end, { description = "increase brightness", group = "custom" }),
-	awful.key({}, "XF86KbdBrightnessDown", function()
-		keybright_widget:dec()
-	end, { description = "decrease brightness", group = "custom" }),
-	awful.key({ modkey }, "g", function()
-		awful.spawn.with_shell("flameshot gui")
-	end, { description = "screenshot with flameshot", group = "custom" }),
-	awful.key({ modkey }, "w", function()
-		awful.spawn.with_shell(".config/awesome/scripts/wallpaper.sh")
-	end, { description = "set wallpaper", group = "custom" })
+	end, { description = "(un)maximize horizontally", group = "client" })
 )
 
 -- Bind all key numbers to tags.
