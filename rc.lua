@@ -369,6 +369,16 @@ globalkeys = gears.table.join(
 	awful.key({}, "XF86AudioMute", function()
 		volume_widget:toggle()
 	end, { description = "mute volume", group = "custom" }),
+	-- play/pause, next, previous
+	awful.key({}, "XF86AudioPlay", function()
+		awful.spawn.with_shell("playerctl play-pause")
+	end, { description = "play/pause toggle", group = "custom" }),
+	awful.key({}, "XF86AudioNext", function()
+		awful.spawn.with_shell("playerctl next")
+	end, { description = "next song", group = "custom" }),
+	awful.key({}, "XF86AudioPrev", function()
+		awful.spawn.with_shell("playerctl previous")
+	end, { description = "previous song", group = "custom" }),
 	-- brightness widget
 	awful.key({}, "XF86MonBrightnessUp", function()
 		brightness_widget:inc()
@@ -555,6 +565,7 @@ awful.rules.rules = {
 	--   properties = { screen = 1, tag = "2" } },
 	-- Rule to fix issue where Firefox does not tile
 	{ rule = { class = "firefox" }, properties = { opacity = 1, maximized = false, floating = false } },
+	{ rule = { class = "chromium" }, properties = { opacity = 1, maximized = false, floating = false } },
 }
 -- }}}
 
