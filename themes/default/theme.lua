@@ -13,7 +13,7 @@ xrdb = xresources.get_current_theme()
 
 local theme = {}
 
-theme.font = "sans 16"
+theme.font = "sans 12"
 
 theme.bg_normal = xrdb.background
 theme.bg_focus = xrdb.color12
@@ -30,6 +30,10 @@ theme.useless_gap = dpi(3)
 theme.border_width = dpi(2)
 theme.border_normal = xrdb.color0
 theme.border_focus = theme.bg_focus
+
+theme.notification_height = 100
+theme.notification_width = 300
+theme.notification_icon_size = 100
 
 -- There are other variable sets
 -- overriding the default one when
