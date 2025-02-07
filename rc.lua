@@ -27,6 +27,8 @@ local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batterya
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 -- New Keyboard Backlight Widget
 local keybright_widget = require("awesome-wm-widgets.keybright-widget.keybright")
+-- Net Speed Widget
+local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -228,6 +230,7 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
+			net_speed_widget(),
 			volume_widget({
 				widget_type = "arc",
 				size = 28,
