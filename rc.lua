@@ -410,7 +410,16 @@ clientkeys = gears.table.join(
 		c:raise()
 	end, { description = "toggle fullscreen", group = "client" }),
 	awful.key({ modkey, "Shift" }, "c", function(c)
-		c:kill()
+		if c.class == "mpv" then
+		    naughty.notify({
+			title = "use Shift+Q to close MPV", 
+			timeout = 2,
+			height = 20,
+			width = 300,
+		    })
+		else
+		    c:kill()
+		end
 	end, { description = "close", group = "client" }),
 	awful.key(
 		{ modkey, "Control" },
