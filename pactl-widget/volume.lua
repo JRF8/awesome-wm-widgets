@@ -179,8 +179,10 @@ local function worker(user_args)
     end
 
     function volume:inc(s)
-        pactl.volume_increase(device, s or step)
-        update_graphic(volume.widget)
+	if pactl.get_volume(device) < 100 then
+	    pactl.volume_increase(device, s or step)
+	    update_graphic(volume.widget)
+	end
     end
 
     function volume:dec(s)
