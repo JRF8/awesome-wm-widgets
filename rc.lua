@@ -578,6 +578,7 @@ awful.rules.rules = {
 	-- Rule to fix issue where Firefox does not tile
 	{ rule = { class = "firefox" }, properties = { opacity = 1, maximized = false, floating = false } },
 	{ rule = { class = "chromium" }, properties = { opacity = 1, maximized = false, floating = false } },
+	{ rule = { class = "google-chrome" }, properties = { opacity = 1, maximized = false, floating = false } },
 }
 -- }}}
 
