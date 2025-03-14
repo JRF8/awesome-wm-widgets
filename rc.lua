@@ -401,7 +401,16 @@ globalkeys = gears.table.join(
 	end, { description = "screenshot with flameshot", group = "custom" }),
 	awful.key({ modkey }, "w", function()
 		awful.spawn.with_shell("wallpaper")
-	end, { description = "set wallpaper", group = "custom" })
+	end, { description = "set wallpaper", group = "custom" }),
+	awful.key({ modkey, "Shift" }, "f", function()
+	    awful.spawn.with_shell("fnlock")
+	    naughty.notify({
+		title = "FN Lock toggled",
+		timeout = 2,
+		height = 20,
+		width = 300,
+	    })
+	end, { description = "toggle FN Lock", group = "custom" })
 )
 
 clientkeys = gears.table.join(
