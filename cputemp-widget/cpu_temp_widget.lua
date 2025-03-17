@@ -38,9 +38,12 @@ function cpu_temp_widget:new(args)
           if temp then
             local temp_text_widget = w:get_children_by_id("temp_text")[1]
             if temp_text_widget then
-              local color = "FFFFFF"-- Default color
+              local color = "#FFFFFF" -- Default white color
+              local markup = "<span color='" .. color .. "'>CPU: " .. temp .. "°C</span>" -- Default markup
+  
               if temp >= critical_temp then
-                color = "#FF0000"
+                color = "#FF0000" -- Hardcoded red
+                markup = "<span color='" .. color .. "'>CPU: " .. temp .. "°C</span>"
                 if args.critical_notification then
                   naughty.notify({
                     title = "CPU Temperature Critical",
@@ -50,7 +53,8 @@ function cpu_temp_widget:new(args)
                   })
                 end
               elseif temp >= warning_temp then
-                color = "#FFA500"
+                color = "#FFA500" -- Hardcoded orange
+                markup = "<span color='" .. color .. "'>CPU: " .. temp .. "°C</span>"
                 if args.warning_notification then
                   naughty.notify({
                     title = "CPU Temperature Warning",
@@ -60,7 +64,6 @@ function cpu_temp_widget:new(args)
                   })
                 end
               end
-              local markup = "<span color='" .. color .. "'>CPU: " .. temp .. "°C</span>"
               temp_text_widget:set_markup(markup)
             else
               print("Error: temp_text widget not found")
@@ -68,14 +71,14 @@ function cpu_temp_widget:new(args)
           else
             local temp_text_widget = w:get_children_by_id("temp_text")[1]
             if temp_text_widget then
-              local markup = "<span color='" .. beautiful.xcolor9 .. "'>CPU: Error</span>"
+              local markup = "<span color='#808080'>CPU: Error</span>" --Hardcoded Grey
               temp_text_widget:set_markup(markup)
             end
           end
         else
           local temp_text_widget = w:get_children_by_id("temp_text")[1]
           if temp_text_widget then
-            local markup = "<span color='" .. beautiful.xcolor9 .. "'>CPU: Error</span>"
+            local markup = "<span color='#808080'>CPU: Error</span>" --Hardcoded Grey
             temp_text_widget:set_markup(markup)
           end
         end
