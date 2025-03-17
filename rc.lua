@@ -29,6 +29,8 @@ local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightne
 local keybright_widget = require("awesome-wm-widgets.keybright-widget.keybright")
 -- Net Speed Widget
 local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
+-- cpu temp widget
+local cpu_temp_widget = require("awesome-wm-widgets.cputemp-widget.cpu_temp_widget")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -230,6 +232,14 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
+			cpu_temp_widget:new({
+			      update_interval = 5, -- seconds
+			      critical_temp = 85, -- Celsius
+			      warning_temp = 75, -- Celsius
+			      -- temp_command = "sensors | grep 'Package id 0:' | awk '{print $4}' | tr -d '+°C'", -- adjust command if needed.
+			      critical_notification = true, -- enable critical notification
+			      warning_notification = true, --enable warning notification
+			}),
 			net_speed_widget(),
 			volume_widget({
 				widget_type = "arc",
